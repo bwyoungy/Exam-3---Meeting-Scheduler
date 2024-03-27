@@ -12,4 +12,13 @@ router.get("/teams", async(request:Request, response:Response, next:NextFunction
     }
 });
 
+router.get("/meetings-by-team/:teamID", async(request:Request, response:Response, next:NextFunction)=>{
+    try {
+        const meetings = await meetingsLogic.getMeetingsByTeam(+request.params.teamID);
+        response.json(meetings);
+    } catch (error:any) {
+        next(error);
+    }
+});
+
 export default router;
