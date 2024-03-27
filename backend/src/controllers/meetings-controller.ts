@@ -2,8 +2,10 @@ import express, { NextFunction, Request, Response } from "express";
 import meetingsLogic from "../logic/meetings-logic";
 import MeetingModel from "../models/meeting-model";
 
+// Create express router
 const router = express.Router();
 
+// Route to get all teams
 router.get("/teams", async(request:Request, response:Response, next:NextFunction)=>{
     try {
         const teams = await meetingsLogic.getAllTeams();
@@ -13,6 +15,7 @@ router.get("/teams", async(request:Request, response:Response, next:NextFunction
     }
 });
 
+// Route to get meetings by team ID
 router.get("/meetings-by-team/:teamID", async(request:Request, response:Response, next:NextFunction)=>{
     try {
         const meetings = await meetingsLogic.getMeetingsByTeam(+request.params.teamID);
@@ -22,6 +25,7 @@ router.get("/meetings-by-team/:teamID", async(request:Request, response:Response
     }
 });
 
+// Route to add a new meeting
 router.post("/meetings", async(request:Request, response:Response, next:NextFunction)=>{
     try {
         const meeting = new MeetingModel(request.body);
